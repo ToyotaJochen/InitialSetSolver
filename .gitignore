@@ -1,4 +1,6 @@
 # Buildfiles
 build/
-lib/cadical-rel-2.1.3/build/
+
 .cache/
+
+./DS_Store
