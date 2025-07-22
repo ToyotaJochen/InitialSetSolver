@@ -1,4 +1,6 @@
 #include <iostream>
+#include <getopt.h>
+#include <cadical.hpp> 
 using namespace std;
 
 int main(){
