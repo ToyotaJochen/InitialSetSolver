@@ -1,7 +1,8 @@
 #include <fstream>
 #include <sstream>
 
-
+#include "IterableBitSet.h"
+#include "AF.h"
 #include "Parse.h"
 
 IterableBitSet parse_i23(AF* aaf, std::string file) {

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <cstdint> 
 
 class AF {
     public:
@@ -10,6 +11,7 @@ class AF {
     AF();
 
     uint32_t args;
+    uint32_t n_scc;
 
     std::vector<std::vector<uint32_t>> attackers;
     std::vector<std::vector<uint32_t>> attacked;
