@@ -85,25 +85,7 @@ int main(int argc, char ** argv) {
 	IterableBitSet active_arguments = parse_i23(& aaf, file);
 	std::vector<std::vector<uint32_t>> result;
 
-    int num_args = aaf.args;
+    aaf.calc_scc();
 
-    typedef adjacency_list<vecS, vecS, directedS> Graph;
-
-    Graph G(num_args);
-
-    for(auto i = 0; i < aaf.attackers.size(); i++){
-        for(auto j = 0; j < aaf.attackers[i].size(); j++){
-            add_edge(j, i, G);
-        }
-    }
-
-    std::vector< int > c(num_args);
-    int num = strong_components(
-        G, make_iterator_property_map(c.begin(), get(vertex_index, G), c[0]));
-
-    std::cout << "Total number of components: " << num << std::endl;
-    for (auto i = c.begin(); i != c.end(); ++i)
-        std::cout << "Vertex " << i - c.begin() << " is in component " << *i
-                  << std::endl;
     return 0;
 }
