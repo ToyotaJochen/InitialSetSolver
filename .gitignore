@@ -1,6 +1,9 @@
 # Buildfiles
 build/
-
 .cache/
 
-.DS_Store
+# OS-generated files
+*.DS_Store
+
+# Benchmarks
+data/

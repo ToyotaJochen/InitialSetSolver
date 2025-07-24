@@ -82,7 +82,7 @@ int main(int argc, char ** argv) {
     }
 
     AF aaf = AF();
-	IterableBitSet active_arguments = parse_i23(&aaf, file);
+	IterableBitSet active_arguments = parse_i23(& aaf, file);
 	std::vector<std::vector<uint32_t>> result;
 
     int num_args = aaf.args;
