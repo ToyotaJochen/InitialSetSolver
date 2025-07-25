@@ -9,6 +9,10 @@ Supports i23 format for abstract argumentation frameworks.
 
 ## Installation
 
+### Installation Requirements
+- boost C++ Libraries installed
+- CMAKE (>=3.11)
+
 ### Building SAT Solver
 This solver works with [CaDiCal](https://github.com/arminbiere/cadical) (version 2.1.3)
 The relevant source files are included and the solver can easily be built as follows
