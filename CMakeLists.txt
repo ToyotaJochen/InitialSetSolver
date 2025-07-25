@@ -3,7 +3,8 @@ project(InitialSetSolver)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(InitialSetSolver src/main.cpp src/Parse.cpp src/AF.cpp src/SCC.cpp)
+add_executable(InitialSetSolver src/Main.cpp src/Parse.cpp src/AF.cpp 
+src/SCC.cpp src/CharacteristicFunction.cpp src/ContainsADM.cpp src/IsInitial.cpp)
 
 
 find_library(
