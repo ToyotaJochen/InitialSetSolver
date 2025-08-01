@@ -4,6 +4,6 @@
 #include <iostream>
 #include <vector>
 
-std::vector<uint32_t> calculate_scc(std::vector<std::vector<uint32_t>> attackers);
+std::vector<int32_t> calculate_scc(std::vector<std::vector<uint32_t>> attackers);
 
 #endif

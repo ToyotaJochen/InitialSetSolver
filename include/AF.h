@@ -11,11 +11,11 @@ class AF {
 public:
 
 AF();
-
+bool scc = false;
 uint32_t args;
 std::vector<std::vector<uint32_t>> attackers;
 std::vector<std::vector<uint32_t>> attacked;
-std::vector<uint32_t> strongly_connected_components;
+std::vector<int32_t> strongly_connected_components;
 
 int32_t accepted_var(uint32_t arg);
 int32_t rejected_var(uint32_t arg);
@@ -24,7 +24,7 @@ void set_arguments(uint32_t n_args);
 void add_attack(uint32_t source, uint32_t target);
 
 void calc_scc();
-std::vector<uint32_t> * get_components();
+std::vector<std::vector<uint32_t>>  get_components();
 
 };
 

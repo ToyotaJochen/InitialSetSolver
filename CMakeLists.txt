@@ -4,7 +4,8 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(InitialSetSolver src/Main.cpp src/Parse.cpp src/AF.cpp 
-src/SCC.cpp src/CharacteristicFunction.cpp src/ContainsADM.cpp src/IsInitial.cpp)
+src/SCC.cpp src/CharacteristicFunction.cpp src/ContainsADM.cpp src/IsInitial.cpp
+src/Encodings.cpp src/CadicalSatSolver.cpp src/EE-PROC.cpp)
 
 
 find_library(

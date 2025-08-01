@@ -10,10 +10,10 @@ using namespace boost;
 
 typedef adjacency_list<vecS, vecS, directedS> Graph;
 
-std::vector<uint32_t> calculate_scc(std::vector<std::vector<uint32_t>> attackers){
+std::vector<int32_t> calculate_scc(std::vector<std::vector<uint32_t>> attackers){
     
     uint32_t num_vertices = attackers.size();
-    std::vector<uint32_t> scc;
+    std::vector<int32_t> scc;
     scc.resize(num_vertices);
 
     Graph G(num_vertices);

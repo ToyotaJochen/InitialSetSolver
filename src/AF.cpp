@@ -24,4 +24,15 @@ int32_t AF::rejected_var(uint32_t arg) {
 
 void AF::calc_scc(){
 	strongly_connected_components = calculate_scc(attackers);
+	scc = true;
+}
+
+std::vector<std::vector<uint32_t>> AF::get_components(){
+	std::vector<std::vector<uint32_t>> components;
+	components.resize(args);
+	for(int i = 0; i < strongly_connected_components.size(); i++){
+		components[strongly_connected_components[i]].push_back(i);
+	}
+
+	return components;
 }

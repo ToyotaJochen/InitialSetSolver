@@ -2,7 +2,7 @@
 #include "Algorithms.h"
 
 namespace Algorithms{
-    std::set<uint32_t> characteristicFunction(AF & af, std::vector<uint32_t> & arguments){
+    std::set<uint32_t> characteristicFunction(AF & af, std::set<uint32_t> & arguments){
         std::set<uint32_t> charFunc;
         bool attacked = false;
         int arg = 0;

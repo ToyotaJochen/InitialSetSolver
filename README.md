@@ -25,8 +25,8 @@ The relevant source files are included and the solver can easily be built as fol
 ## Compile and Build Solver
 To compile the solver, cd into the project root and use
 ```
-  cmake -G build
-  cmake --build
+  cmake -B build
+  cmake --build build
 ```
 
 The binary can be found under `build/bin/serial-solver`
