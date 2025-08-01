@@ -23,8 +23,27 @@ using namespace boost;
 
 std::string solver, file;
 
-void print_solver(){
-    std::cout << "iterative SAT [itSAT], SAT [nitSAT], Procedural Test [procTEST]\n";
+enum task { ITERSAT, SAT, PROCEDURAL, UNKNOWN_TASK };
+enum semantics { IT, UNKNOWN_SEM };
+
+
+task string_to_task(std::string problem) {
+	std::string tmp = problem.substr(0, problem.find("-"));
+	if (tmp == "ITERSAT") return ITERSAT;
+	if (tmp == "SAT") return SAT;
+	if (tmp == "PROCEDURAL") return PROCEDURAL;
+	return UNKNOWN_TASK;
+}
+
+semantics string_to_sem(std::string problem) {
+	problem.erase(0, problem.find("-") + 1);
+	std::string tmp = problem.substr(0, problem.find("-"));
+	if (tmp == "IT") return IT;
+	return UNKNOWN_SEM;
+}
+
+void print_problems(){
+    std::cout << "[IT-ITERSAT, IT-SAT, IT-PROCEDURAL]\n";
 }
 
 void print_author_and_version(){
@@ -40,7 +59,7 @@ void print_help(){
     std::cout << "Options:\n";
 	std::cout << "  -h          Displays this help message.\n";
 	std::cout << "  -v          Prints version and author information.\n";
-	std::cout << "  -l          Prints available Solver for computing initial sets.\n";
+	std::cout << "  -l          Prints available solver for computing initial sets.\n";
 }
 
 int main(int argc, char ** argv) {    
@@ -66,7 +85,7 @@ int main(int argc, char ** argv) {
                 print_author_and_version();
                 break;
             case 'l':
-                print_solver();
+                print_problems();
                 break;
             case 's':
                 solver = optarg;
@@ -84,8 +103,21 @@ int main(int argc, char ** argv) {
     AF aaf = AF();
 	IterableBitSet active_arguments = parse_i23(& aaf, file);
 	std::vector<std::vector<uint32_t>> result;
-
     aaf.calc_scc();
+
+    switch (string_to_task(solver))
+    {
+    case ITERSAT:
+        /* code */
+        break;
+    case SAT:
+        break;
+    case PROCEDURAL:
+        break;
+    default:
+        return 1;
+    }
+
 
     return 0;
 }

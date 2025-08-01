@@ -32,7 +32,7 @@ namespace Algorithms{
                 for(const uint32_t & arg : active_arguments._array) {
                     if (solver.model[arg]) {
                         extension.push_back(arg);
-                        //complement_clause.push_back(-af.accepted_var(arg)); // TODO is this even needed ?
+                        //complement_clause.push_back(-af.accepted_var(arg));
                     }
                 }
                 result.push_back(extension);

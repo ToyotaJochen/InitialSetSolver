@@ -29,7 +29,7 @@ To compile the solver, cd into the project root and use
   cmake --build build
 ```
 
-The binary can be found under `build/bin/serial-solver`
+The binary can be found under `build/bin/InitialSetSolver`
 
 ## Command-line usage
 
