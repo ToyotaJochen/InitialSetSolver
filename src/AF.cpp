@@ -14,6 +14,7 @@ void AF::add_attack(uint32_t source, uint32_t target) {
 	attacked[source].push_back(target);
 }
 
+// accepted_var entspricht dem index des inputs (i23)
 int32_t AF::accepted_var(uint32_t arg) {
 	return arg+1;
 }
@@ -22,9 +23,25 @@ int32_t AF::rejected_var(uint32_t arg) {
 	return (args + arg + 1);
 }
 
+int32_t AF::component_var(uint32_t arg){
+	return strongly_connected_components[arg];
+}
+
+int32_t AF::accepted_min_var(uint32_t arg){
+	return(2 * args + arg + 1);
+}
+
+int32_t AF::rejected_min_var(uint32_t arg){
+	return(3 * args + arg + 1);
+}
+
 void AF::calc_scc(){
 	strongly_connected_components = calculate_scc(attackers);
 	scc = true;
+}
+
+std::vector<int32_t> AF::get_components_array(){
+	return strongly_connected_components;
 }
 
 std::vector<std::vector<uint32_t>> AF::get_components(){

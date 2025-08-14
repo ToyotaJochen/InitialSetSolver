@@ -19,6 +19,10 @@ std::vector<int32_t> strongly_connected_components;
 
 int32_t accepted_var(uint32_t arg);
 int32_t rejected_var(uint32_t arg);
+int32_t component_var(uint32_t arg);
+int32_t accepted_min_var(uint32_t arg);
+int32_t rejected_min_var(uint32_t arg);
+std::vector<int32_t> get_components_array();
 
 void set_arguments(uint32_t n_args);
 void add_attack(uint32_t source, uint32_t target);

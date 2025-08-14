@@ -25,6 +25,7 @@ public:
 	void add_clause_2(int32_t lit1, int32_t lit2);
 	void add_clause_3(int32_t lit1, int32_t lit2, int32_t lit3);
 	void assume(int32_t lit);
+	bool check();
 	int solve();
 	int solve_extension();
 	int solve(const std::vector<int32_t> assumptions);

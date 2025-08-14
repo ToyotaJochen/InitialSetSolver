@@ -110,3 +110,7 @@ int CadicalSatSolver::solve(const std::vector<int32_t> assumptions) {
 	}
 	return solve();
 }
+
+bool CadicalSatSolver::check(){
+	return solver->inconsistent();
+}

@@ -12,6 +12,7 @@ namespace Algorithms{
                 return false;
             }
         }
+        //std::cout <<"is initial c > 1 \n";
 
         for(auto a : arguments){
             for(auto b: arguments){
@@ -22,9 +23,11 @@ namespace Algorithms{
                             candidate.insert(c);
                         }
                     }
+                    std::cout << "entering contains \n";
                     if(contains_admissible(af, candidate, a)){
                         return false;
                     }
+                    std::cout << "left contains \n";
                 }
             }
         }

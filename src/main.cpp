@@ -7,13 +7,9 @@
 #include "AF.h"
 #include "Parse.h"
 #include "Main.h"
+#include "Algorithms.h"
 #include "CadicalSatSolver.h"
 
-
-
-
-void print_info_and_version();
-void print_help();
 
 using namespace boost;
 
@@ -22,23 +18,25 @@ static int usage_flag = 0;
 static int formats_flag = 0;
 static int problems_flag = 0;
 
-enum task { ITERSAT, SAT, PROCEDURAL, UNKNOWN_TASK };
+enum task { ITERSAT, SATSCC, PROCEDURAL, UNKNOWN_TASK };
 enum semantics { IT, UNKNOWN_SEM };
 
 
-task string_to_task(std::string problem) {
-	std::string tmp = problem.substr(0, problem.find("-"));
-	if (tmp == "ITERSAT") return ITERSAT;
-	if (tmp == "SAT") return SAT;
-	if (tmp == "PROCEDURAL") return PROCEDURAL;
-	return UNKNOWN_TASK;
-}
+// task string_to_task(std::string problem) {
+// 	std::string tmp = problem.substr(0, problem.find("-"));
+// 	if (tmp == "ITERSAT") return ITERSAT;
+// 	if (tmp == "SAT") return SAT;
+// 	if (tmp == "PROCEDURAL") return PROCEDURAL;
+// 	return UNKNOWN_TASK;
+// }
 
-semantics string_to_sem(std::string problem) {
+task string_to_task(std::string problem) {
 	problem.erase(0, problem.find("-") + 1);
 	std::string tmp = problem.substr(0, problem.find("-"));
-	if (tmp == "IT") return IT;
-	return UNKNOWN_SEM;
+	if (tmp == "ITERSAT") return ITERSAT;
+	if (tmp == "SATSCC") return SATSCC;
+	if (tmp == "PROCEDURAL") return PROCEDURAL;
+	return UNKNOWN_TASK;
 }
 
 void print_problems(){
@@ -98,6 +96,7 @@ int main(int argc, char ** argv) {
 				break;
 			case 'p':
 				task = optarg;
+				//std::cout << task;
 				break;
 			case 'f':
 				file = optarg;
@@ -152,18 +151,42 @@ int main(int argc, char ** argv) {
     AF aaf = AF();
 	IterableBitSet active_arguments = parse_i23(& aaf, file);
 	std::vector<std::vector<uint32_t>> result;
+
     aaf.calc_scc();
+	std::cout<< " scc done \n";
+	std::vector<std::vector<uint32_t>> com = aaf.get_components();
+	for(int i = 0; i < com.size(); i++){
+		for(int j = 0; j < com[i].size(); j++){
+			std::cout << "Vertex " << aaf.accepted_var(active_arguments._array[com[i][j]]) << " is in component " << i << "\n"; 
+		}
+	}
 
     switch (string_to_task(task))
     {
     case ITERSAT:
-        /* code */
-        break;
-    case SAT:
+        result = Algorithms::enumerate_initial(aaf, active_arguments);
+		for (const std::vector<uint32_t> & ext : result) {
+				print_extension(aaf, ext);
+				std::cout << ",";
+		}
+		break;
+    case SATSCC:
+		result = Algorithms::enumerate_initial_scc(aaf, active_arguments);
+			for (const std::vector<uint32_t> & ext : result) {
+				print_extension(aaf, ext);
+				std::cout << ",";
+			}
         break;
     case PROCEDURAL:
+		std::cout << "proc \n";
+		result = Algorithms::enumerate_procedural(aaf, active_arguments);
+		for (const std::vector<uint32_t> & ext : result) {
+			print_extension(aaf, ext);
+			std::cout << ",";
+		}
         break;
     default:
+		std::cout << string_to_task(task);
         return 1;
     }
 
