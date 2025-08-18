@@ -18,7 +18,7 @@ static int usage_flag = 0;
 static int formats_flag = 0;
 static int problems_flag = 0;
 
-enum task { ITERSAT, SATSCC, PROCEDURAL, UNKNOWN_TASK };
+enum task { ITERSAT, NITSAT, PROCEDURAL, UNKNOWN_TASK };
 enum semantics { IT, UNKNOWN_SEM };
 
 
@@ -33,14 +33,14 @@ enum semantics { IT, UNKNOWN_SEM };
 task string_to_task(std::string problem) {
 	problem.erase(0, problem.find("-") + 1);
 	std::string tmp = problem.substr(0, problem.find("-"));
-	if (tmp == "ITERSAT") return ITERSAT;
-	if (tmp == "SATSCC") return SATSCC;
-	if (tmp == "PROCEDURAL") return PROCEDURAL;
+	if (tmp == "IT") return ITERSAT;
+	if (tmp == "NIT") return NITSAT;
+	if (tmp == "PROC") return PROCEDURAL;
 	return UNKNOWN_TASK;
 }
 
 void print_problems(){
-    std::cout << "[IT-ITERSAT, IT-SAT, IT-PROCEDURAL]\n";
+    std::cout << "[EE-IT, EE-NIT, EE-PROC]\n";
 }
 
 void print_version(){
@@ -153,13 +153,13 @@ int main(int argc, char ** argv) {
 	std::vector<std::vector<uint32_t>> result;
 
     aaf.calc_scc();
-	std::cout<< " scc done \n";
-	std::vector<std::vector<uint32_t>> com = aaf.get_components();
-	for(int i = 0; i < com.size(); i++){
-		for(int j = 0; j < com[i].size(); j++){
-			std::cout << "Vertex " << aaf.accepted_var(active_arguments._array[com[i][j]]) << " is in component " << i << "\n"; 
-		}
-	}
+	// std::cout<< " scc done \n";
+	// std::vector<std::vector<uint32_t>> com = aaf.get_components();
+	// for(int i = 0; i < com.size(); i++){
+	// 	for(int j = 0; j < com[i].size(); j++){
+	// 		std::cout << "Vertex " << aaf.accepted_var(active_arguments._array[com[i][j]]) << " is in component " << i << "\n"; 
+	// 	}
+	// }
 
     switch (string_to_task(task))
     {
@@ -170,23 +170,23 @@ int main(int argc, char ** argv) {
 				std::cout << ",";
 		}
 		break;
-    case SATSCC:
-		result = Algorithms::enumerate_initial_scc(aaf, active_arguments);
-			for (const std::vector<uint32_t> & ext : result) {
-				print_extension(aaf, ext);
-				std::cout << ",";
-			}
+    case NITSAT:
+		// result = Algorithms::enumerate_initial_scc(aaf, active_arguments);
+		// 	for (const std::vector<uint32_t> & ext : result) {
+		// 		print_extension(aaf, ext);
+		// 		std::cout << ",";
+		// 	}
         break;
     case PROCEDURAL:
-		std::cout << "proc \n";
-		result = Algorithms::enumerate_procedural(aaf, active_arguments);
-		for (const std::vector<uint32_t> & ext : result) {
-			print_extension(aaf, ext);
-			std::cout << ",";
-		}
+		// std::cout << "proc \n";
+		// result = Algorithms::enumerate_procedural(aaf, active_arguments);
+		// for (const std::vector<uint32_t> & ext : result) {
+		// 	print_extension(aaf, ext);
+		// 	std::cout << ",";
+		// }
         break;
     default:
-		std::cout << string_to_task(task);
+		std::cout << "Task not supported! \n";
         return 1;
     }
 
