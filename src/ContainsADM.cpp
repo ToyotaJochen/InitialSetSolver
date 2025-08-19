@@ -7,18 +7,17 @@ namespace Algorithms{
             return false;
         }
         std::set<uint32_t> charFunc = characteristicFunction(af, arguments);
-        for(auto i : arguments){
-            if(std::find(charFunc.begin(), charFunc.end(), i) == charFunc.end()){
-                std::set<uint32_t> def_arguments;
-                // def_arguments.resize(arguments.size());
-                for(auto j: arguments){
-                    if(std::find(charFunc.begin(), charFunc.end(), j) != charFunc.end()){
-                        def_arguments.insert(j);
-                    }
-                }
-                return contains_admissible(af, def_arguments, arg);
+        if(std::includes(charFunc.begin(), charFunc.end(), arguments.begin(), arguments.end())){
+            return true;
+        } else {
+            std::set<uint32_t> intersection;
+            intersection.clear();
+            std::set_intersection(charFunc.begin(), charFunc.end(), arguments.begin(), arguments.end(),inserter(intersection, intersection.begin()));
+            if(intersection.empty()) {
+                return false;
+            } else {
+                return contains_admissible(af, intersection, arg);
             }
         }
-        return true;
     }
 }

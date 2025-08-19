@@ -6,7 +6,7 @@ namespace Algorithms{
     bool is_initial(AF & af, std::set<uint32_t> & arguments){
         if(arguments.size() == 1){
             std::set<uint32_t> char_func = characteristicFunction(af, arguments);
-            if (includes(arguments.begin(), arguments.end(), char_func.begin(), char_func.end())){
+            if (includes(char_func.begin(), char_func.end(), arguments.begin(), arguments.end())){
                 return true;
             } else {
                 return false;
