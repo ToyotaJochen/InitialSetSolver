@@ -153,13 +153,13 @@ int main(int argc, char ** argv) {
 	std::vector<std::vector<uint32_t>> result;
 
     aaf.calc_scc();
-	// std::cout<< " scc done \n";
-	// std::vector<std::vector<uint32_t>> com = aaf.get_components();
-	// for(int i = 0; i < com.size(); i++){
-	// 	for(int j = 0; j < com[i].size(); j++){
-	// 		std::cout << "Vertex " << aaf.accepted_var(active_arguments._array[com[i][j]]) << " is in component " << i << "\n"; 
-	// 	}
-	// }
+	std::cout<< " scc done \n";
+	std::vector<std::vector<uint32_t>> com = aaf.get_components();
+	for(int i = 0; i < com.size(); i++){
+		for(int j = 0; j < com[i].size(); j++){
+			std::cout << "Vertex " << aaf.accepted_var(active_arguments._array[com[i][j]]) << " is in component " << i << "\n"; 
+		}
+	}
 
     switch (string_to_task(task))
     {
@@ -178,12 +178,12 @@ int main(int argc, char ** argv) {
 		// 	}
         break;
     case PROCEDURAL:
-		// std::cout << "proc \n";
-		// result = Algorithms::enumerate_procedural(aaf, active_arguments);
-		// for (const std::vector<uint32_t> & ext : result) {
-		// 	print_extension(aaf, ext);
-		// 	std::cout << ",";
-		// }
+		std::cout << "proc \n";
+		result = Algorithms::enumerate_procedural(aaf, active_arguments);
+		for (const std::vector<uint32_t> & ext : result) {
+			print_extension(aaf, ext);
+			std::cout << ",";
+		}
         break;
     default:
 		std::cout << "Task not supported! \n";

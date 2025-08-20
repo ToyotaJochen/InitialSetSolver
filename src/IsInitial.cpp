@@ -3,9 +3,9 @@
 #include "Algorithms.h"
 
 namespace Algorithms{
-    bool is_initial(AF & af, std::set<uint32_t> & arguments){
+    bool is_initial(AF & af, IterableBitSet active_arguments, std::set<uint32_t> & arguments){
         if(arguments.size() == 1){
-            std::set<uint32_t> char_func = characteristicFunction(af, arguments);
+            std::set<uint32_t> char_func = characteristicFunction(af, active_arguments, arguments);
             if (includes(char_func.begin(), char_func.end(), arguments.begin(), arguments.end())){
                 return true;
             } else {
@@ -24,7 +24,7 @@ namespace Algorithms{
                         }
                     }
                     std::cout << "entering contains \n";
-                    if(contains_admissible(af, candidate, a)){
+                    if(contains_admissible(af, active_arguments, candidate, a)){
                         return false;
                     }
                     std::cout << "left contains \n";
