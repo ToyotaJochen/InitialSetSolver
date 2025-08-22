@@ -153,13 +153,13 @@ int main(int argc, char ** argv) {
 	std::vector<std::vector<uint32_t>> result;
 
     aaf.calc_scc();
-	std::cout<< " scc done \n";
-	std::vector<std::vector<uint32_t>> com = aaf.get_components();
-	for(int i = 0; i < com.size(); i++){
-		for(int j = 0; j < com[i].size(); j++){
-			std::cout << "Vertex " << aaf.accepted_var(active_arguments._array[com[i][j]]) << " is in component " << i << "\n"; 
-		}
-	}
+	// std::cout<< " scc done \n";
+	// std::vector<std::vector<uint32_t>> com = aaf.get_components();
+	// for(int i = 0; i < com.size(); i++){
+	// 	for(int j = 0; j < com[i].size(); j++){
+	// 		std::cout << "Vertex " << aaf.accepted_var(active_arguments._array[com[i][j]]) << " is in component " << i << "\n"; 
+	// 	}
+	// }
 
     switch (string_to_task(task))
     {

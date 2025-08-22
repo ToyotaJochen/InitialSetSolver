@@ -3,6 +3,7 @@
 
 namespace Algorithms{
     bool contains_admissible(AF & af, const IterableBitSet & active_arguments, std::set<uint32_t> & arguments, int arg){
+        if(arguments.empty()) return false;
         if(std::find(arguments.begin(), arguments.end(), arg) == arguments.end()){
             return false;
         }
