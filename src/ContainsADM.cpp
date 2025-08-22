@@ -2,7 +2,7 @@
 #include "Algorithms.h"
 
 namespace Algorithms{
-    bool contains_admissible(AF & af, IterableBitSet active_arguments, std::set<uint32_t> & arguments, int arg){
+    bool contains_admissible(AF & af, const IterableBitSet & active_arguments, std::set<uint32_t> & arguments, int arg){
         if(std::find(arguments.begin(), arguments.end(), arg) == arguments.end()){
             return false;
         }
@@ -16,7 +16,7 @@ namespace Algorithms{
             if(intersection.empty()) {
                 return false;
             } else {
-                return contains_admissible(af, active_arguments, arguments, arg);
+                return contains_admissible(af, active_arguments, intersection, arg);
             }
         }
     }

@@ -3,10 +3,10 @@
 #include "Algorithms.h"
 
 namespace Algorithms{
-    bool is_initial(AF & af, IterableBitSet active_arguments, std::set<uint32_t> & arguments){
+    bool is_initial(AF & af, const IterableBitSet & active_arguments, std::set<uint32_t> & arguments){
         if(arguments.size() == 1){
             std::set<uint32_t> char_func = characteristicFunction(af, active_arguments, arguments);
-            if (includes(char_func.begin(), char_func.end(), arguments.begin(), arguments.end())){
+            if (std::find(arguments.begin(), arguments.end(), *arguments.begin()) != arguments.end()){
                 return true;
             } else {
                 return false;
@@ -23,11 +23,11 @@ namespace Algorithms{
                             candidate.insert(c);
                         }
                     }
-                    std::cout << "entering contains \n";
+                    //std::cout << "entering contains \n";
                     if(contains_admissible(af, active_arguments, candidate, a)){
                         return false;
                     }
-                    std::cout << "left contains \n";
+                    //std::cout << "left contains \n";
                 }
             }
         }
