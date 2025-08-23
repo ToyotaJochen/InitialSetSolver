@@ -20,6 +20,7 @@ namespace Algorithms{
             if (sat == UNSAT_V) break;
             complement_clause.clear();
             complement_clause.reserve(active_arguments._array.size());
+            candidate.clear();
             std::cout << " \n model: \n";
             for(const uint32_t & arg : active_arguments._array) {
                 if (solver.model[arg]) {
@@ -30,21 +31,21 @@ namespace Algorithms{
             }
             solver.add_clause(complement_clause);
             std::set<uint32_t> cf = characteristicFunction(af, active_arguments, candidate);
-            // bool initial = is_initial(af, active_arguments, candidate);
-            // std::cout << "isInitial: " << initial << std::endl;
+            bool initial = is_initial(af, active_arguments, candidate);
+            //std::cout << "isInitial: " << initial << std::endl;
 
-            // if(initial){ 
-            //     extension.clear();
-            //     extension.reserve(active_arguments._array.size());
+            if(initial){ 
+                extension.clear();
+                extension.reserve(active_arguments._array.size());
                
-            //     for(const uint32_t & arg : active_arguments._array) {
-            //         if (solver.model[arg]) {
-            //             extension.push_back(arg);
-            //         }
-            //     }
-            //     result.push_back(extension);
-            //     //break;
-            // }
+                for(const uint32_t & arg : active_arguments._array) {
+                    if (solver.model[arg]) {
+                        extension.push_back(arg);
+                    }
+                }
+                result.push_back(extension);
+                //break;
+            }
 
 
         }

@@ -31,22 +31,23 @@ namespace Algorithms{
         for(uint32_t a = 0; a < active_arguments._array.size(); a++){
             if(af.attackers[a].empty()){
                 charFunc.insert(active_arguments._array[a]);
-                std::cout << "argument " << af.accepted_var(active_arguments._array[a]) << " added to D_F \n";
+                //std::cout << "non-attacked argument " << af.accepted_var(active_arguments._array[a]) << " added to D_F \n";
             } else {
-                counter = 0;
                 std::vector<uint32_t> attackers_of_a = af.attackers[a];
+                counter = 0;
                 for(uint32_t b : attackers_of_a){
                     std::vector<uint32_t> attackers_of_b = af.attackers[b];
                     for(uint32_t c : attackers_of_b){
                         if(arguments.contains(c)){
                             counter++;
+                            break;
                         }
                     }
-                }
-                if(counter == af.attackers[a].size()){
-                    if(!charFunc.contains(active_arguments._array[a])){
-                        charFunc.insert(active_arguments._array[a]);
-                        std::cout << "argument " << af.accepted_var(active_arguments._array[a]) << " added to D_F \n";
+                    if(counter == af.attackers[a].size()){
+                        if(!charFunc.contains(active_arguments._array[a])){
+                            charFunc.insert(active_arguments._array[a]);
+                            //std::cout << "argument " << af.accepted_var(active_arguments._array[a]) << " added to D_F \n";
+                        }
                     }
                 }
             }
