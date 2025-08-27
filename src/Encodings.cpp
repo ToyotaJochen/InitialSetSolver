@@ -52,7 +52,7 @@ namespace Encodings {
 			for (size_t c = 0; c < active_arguments._array.size(); c++) {
 				if(af.strongly_connected_components[active_arguments._array[c]] != scc_id){
 					solver.add_clause_2(-af.accepted_var(active_arguments._array[i]), -af.accepted_var(active_arguments._array[c]));
-					//std::cout << "SCC clause: " << -af.accepted_var(active_arguments._array[i]) << ", " << af.rejected_var(active_arguments._array[c]) << std::endl;
+					//std::cout << "SCC clause: " << -af.accepted_var(active_arguments._array[i]) << ", " << af.rejected_var(active_arguments._array[c]) << "\n";
 					//std::cout << solver.check() << "\n";
 				}
 			}

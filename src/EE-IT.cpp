@@ -19,14 +19,18 @@ namespace Algorithms {
         SAT_Solver solver = SAT_Solver(af.args);
         Encodings::admissible_nonempty_scc(af, active_arguments, solver);
         //std::cout << solver.check(); 
+        int m_count = 0;
 
         
         while (true) { // iteratively compute models for the encoding
             bool found_extension = false;
             while (true) { // Iteratively minimize the found model
                 int sat = solver.solve();
-                if (sat == UNSAT_V) break;
-
+                if (sat == UNSAT_V){
+                    m_count = 0;
+                    break;
+                }
+                std::cout << m_count++ << "\n";
                 // add clause that ensures at least one accepted argument of the found model must not be accepted
                 // ensure that no new argument may be accepted via temporary assumptions
                 found_extension = true;
@@ -39,7 +43,7 @@ namespace Algorithms {
                         solver.assume(-af.accepted_var(arg));
                     }
                 }
-                solver.add_clause(minimization_clause);
+                solver.add_clause(minimization_clause); // durch das minimieren werden deutlich gezieltere(?) komplementärklauseln hinzugefügt. hier könnte der große performancevorteil begründet sein.
             }
             if (found_extension) { // if an extension has been found and minimized, add corresponding extension 
                                    // to result and add a complement clause to ensure it is not found again
