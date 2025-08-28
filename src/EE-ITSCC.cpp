@@ -3,7 +3,7 @@
 
 namespace Algorithms {
     /* Enumerates initial sets of the argumentation framework */
-    std::vector<std::vector<uint32_t>> enumerate_initial(AF & af, const IterableBitSet & active_arguments) {
+    std::vector<std::vector<uint32_t>> enumerate_initial_scc(AF & af, const IterableBitSet & active_arguments) {
         if (active_arguments._array.empty()) {
             return {};
         }
@@ -17,7 +17,7 @@ namespace Algorithms {
 
         // Create encoding for non-empty admissible sets
         SAT_Solver solver = SAT_Solver(af.args);
-        Encodings::admissible_nonempty(af, active_arguments, solver);
+        Encodings::admissible_nonempty_scc(af, active_arguments, solver);
         //std::cout << solver.check(); 
         int m_count = 0;
 

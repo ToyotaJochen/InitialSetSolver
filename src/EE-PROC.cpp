@@ -35,7 +35,7 @@ namespace Algorithms{
                 }
                 solver.add_clause(complement_clause);
                 //std::cout << " add comp \n";
-                if(is_initial(af, active_arguments, candidate)){
+                if(is_initial(af, active_arguments, candidate, solver)){
                     extension.clear();
                     extension.reserve(active_arguments._array.size());
                     for(const uint32_t arg: active_arguments._array){

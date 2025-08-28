@@ -73,6 +73,54 @@ namespace Encodings {
 		// std::cout << solver.check() << "\n";
 	}
 
+	void min(AF & af, const IterableBitSet & active_arguments, SAT_Solver & solver){
+		std::vector<int32_t> min_test_clause;
+		min_test_clause.reserve(active_arguments._array.size());
+		std::vector<int32_t> non_empty_clause;
+		std::vector<int32_t> out_clause;
+		for (size_t a = 0; a < active_arguments._array.size(); a++) {
+			for (size_t b = 0; b < active_arguments._array.size(); b++) {
+				if(b != a){
+					non_empty_clause.clear();
+					min_test_clause.clear();
+					min_test_clause.push_back(-af.accepted_var(a));
+					min_test_clause.push_back(-af.accepted_var(b));
+					min_test_clause.push_back(-af.accepted_min_var(a));
+					std::vector<std::vector<int32_t>> min_adm;
+					non_empty_clause[a] = af.accepted_min_var(active_arguments._array[a]);
+
+					// rej_1
+					solver.add_clause_2(-af.accepted_min_var(active_arguments._array[a]), -af.rejected_min_var(active_arguments._array[a]));
+		    		out_clause.clear();
+					out_clause.reserve(af.attackers[active_arguments._array[a]].size()+1);
+		    		for (size_t j = 0; j < af.attackers[active_arguments._array[a]].size(); j++) {
+			 			if (active_arguments._bitset[af.attackers[active_arguments._array[a]][j]]) {
+							// adm
+			 				solver.add_clause_2(-af.accepted_min_var(active_arguments._array[a]), af.rejected_min_var(af.attackers[active_arguments._array[a]][j]));
+			 				// rej_3
+							out_clause.push_back(af.accepted_min_var(af.attackers[active_arguments._array[a]][j]));
+			 			}
+					}
+					// rej_3
+					out_clause.push_back(-af.rejected_min_var(active_arguments._array[a]));
+					solver.add_clause(out_clause);
+
+					// SCC
+					int scc_id = af.strongly_connected_components[a];
+					for (size_t c = 0; c < active_arguments._array.size(); c++) {
+						if(af.strongly_connected_components[active_arguments._array[c]] != scc_id){
+							solver.add_clause_2(-af.accepted_min_var(active_arguments._array[a]), -af.accepted_min_var(active_arguments._array[c]));
+						}
+					}
+				
+					solver.add_clause(non_empty_clause);
+				}
+			}
+		}		
+			
+	}
+	
+
 	// Niskanen, A.
 	// Encodings from Mu-Toksia Solver
 	

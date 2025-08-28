@@ -10,7 +10,6 @@
 #include "Algorithms.h"
 #include "CadicalSatSolver.h"
 
-
 using namespace boost;
 
 static int version_flag = 0;
@@ -18,29 +17,21 @@ static int usage_flag = 0;
 static int formats_flag = 0;
 static int problems_flag = 0;
 
-enum task { ITERSAT, NITSAT, PROCEDURAL, UNKNOWN_TASK };
+enum task { ITERSATSCC, ITSAT, NITSAT, PROCEDURAL, UNKNOWN_TASK };
 enum semantics { IT, UNKNOWN_SEM };
-
-
-// task string_to_task(std::string problem) {
-// 	std::string tmp = problem.substr(0, problem.find("-"));
-// 	if (tmp == "ITERSAT") return ITERSAT;
-// 	if (tmp == "SAT") return SAT;
-// 	if (tmp == "PROCEDURAL") return PROCEDURAL;
-// 	return UNKNOWN_TASK;
-// }
 
 task string_to_task(std::string problem) {
 	problem.erase(0, problem.find("-") + 1);
 	std::string tmp = problem.substr(0, problem.find("-"));
-	if (tmp == "IT") return ITERSAT;
+	if (tmp == "IT") return ITSAT;
+	if (tmp == "ITSCC") return ITERSATSCC;
 	if (tmp == "NIT") return NITSAT;
 	if (tmp == "PROC") return PROCEDURAL;
 	return UNKNOWN_TASK;
 }
 
 void print_problems(){
-    std::cout << "[EE-IT, EE-NIT, EE-PROC]\n";
+    std::cout << "[EE-IT, EE-ITSCC, EE-NIT, EE-PROC]\n";
 }
 
 void print_version(){
@@ -163,22 +154,28 @@ int main(int argc, char ** argv) {
 
     switch (string_to_task(task))
     {
-    case ITERSAT:
-        result = Algorithms::enumerate_initial(aaf, active_arguments);
+	case ITSAT:
+		result = Algorithms::enumerate_initial(aaf, active_arguments);
+		for (const std::vector<uint32_t> & ext : result) {
+				print_extension(aaf, ext);
+				std::cout << ",";
+		}
+		break;
+    case ITERSATSCC:
+        result = Algorithms::enumerate_initial_scc(aaf, active_arguments);
 		for (const std::vector<uint32_t> & ext : result) {
 				print_extension(aaf, ext);
 				std::cout << ",";
 		}
 		break;
     case NITSAT:
-		// result = Algorithms::enumerate_initial_scc(aaf, active_arguments);
-		// 	for (const std::vector<uint32_t> & ext : result) {
-		// 		print_extension(aaf, ext);
-		// 		std::cout << ",";
-		// 	}
+		result = Algorithms::enumerate_initial_non_it(aaf, active_arguments);
+			for (const std::vector<uint32_t> & ext : result) {
+				print_extension(aaf, ext);
+				std::cout << ",";
+			}
         break;
     case PROCEDURAL:
-		std::cout << "proc \n";
 		result = Algorithms::enumerate_procedural(aaf, active_arguments);
 		for (const std::vector<uint32_t> & ext : result) {
 			print_extension(aaf, ext);
