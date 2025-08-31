@@ -10,8 +10,9 @@ typedef CadicalSatSolver SAT_Solver;
 namespace Encodings {
     void admissible_nonempty(AF & af, const IterableBitSet & active_arguments, SAT_Solver & solver);
     void admissible_nonempty_scc(AF & af, const IterableBitSet & active_arguments, SAT_Solver & solver);
-    void min(AF & af, const IterableBitSet & active_arguments, SAT_Solver & solver);
-
+    void min(AF & af, const std::vector<uint32_t> & active_arguments, SAT_Solver & solver);
+    void nonempty_scc(AF & af, const IterableBitSet & active_arguments, SAT_Solver & solver);
+    void admissible_nonempty_vec(AF & af, const std::vector<uint32_t> & active_arguments, SAT_Solver & solver);
     void add_rejected(AF & af, const IterableBitSet & active_arguments, SAT_Solver & solver);
     void add_conflict_free(AF & af, const IterableBitSet & active_arguments, SAT_Solver & solver);
     void add_admissible(AF & af, const IterableBitSet & active_arguments, SAT_Solver & solver);
