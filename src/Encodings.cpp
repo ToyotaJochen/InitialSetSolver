@@ -115,7 +115,9 @@ namespace Encodings {
 		Encodings::admissible_nonempty_vec(af, active_arguments, solver);
 		for(uint32_t a : active_arguments){
 			for(uint32_t b : active_arguments){
-				solver.add_clause_2(-af.accepted_min_var(a), -af.accepted_min_var(b));
+				if(a != b){
+					solver.add_clause_2(-af.accepted_min_var(a), -af.accepted_min_var(b));
+				}
 			}
 		}
 					
