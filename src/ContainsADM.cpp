@@ -28,7 +28,7 @@ namespace Algorithms{
                 for(const uint32_t arg: arguments){
                     complement_clause.push_back(-af.accepted_var(arg));
                 }
-                solver.add_clause(complement_clause);
+                //solver.add_clause(complement_clause);
                 return false;
             } else {
                 for(const uint32_t arg: arguments){

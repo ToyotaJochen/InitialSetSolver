@@ -35,6 +35,10 @@ int32_t AF::rejected_min_var(uint32_t arg){
 	return(3 * args + arg + 1);
 }
 
+// int32_t AF::component_var(uint32_t arg){
+// 	return strongly_connected_components[arg];
+// }
+
 void AF::calc_scc(){
 	strongly_connected_components = calculate_scc(attackers);
 	scc = true;
