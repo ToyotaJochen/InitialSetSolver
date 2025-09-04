@@ -17,7 +17,7 @@ namespace Algorithms {
 
         // Create encoding for non-empty admissible sets
         SAT_Solver solver = SAT_Solver(af.args);
-        Encodings::nonempty_scc(af, active_arguments, solver);
+        Encodings::admissible_nonempty_scc(af, active_arguments, solver);
         //std::cout << solver.check(); 
         int m_count = 0;
 
@@ -30,7 +30,7 @@ namespace Algorithms {
                     m_count = 0;
                     break;
                 }
-                // std::cout << m_count++ << "\n";
+                std::cout << m_count++ << "\n";
                 // add clause that ensures at least one accepted argument of the found model must not be accepted
                 // ensure that no new argument may be accepted via temporary assumptions
                 found_extension = true;

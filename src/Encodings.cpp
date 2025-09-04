@@ -26,8 +26,8 @@ namespace Encodings {
 	void admissible_nonempty_scc(AF & af, const IterableBitSet & active_arguments, SAT_Solver & solver) {
 		std::vector<int32_t> non_empty_clause(active_arguments._array.size());
 		std::vector<int32_t> out_clause;
-		std::vector<uint8_t> scc_processed_args_bitset;
-		scc_processed_args_bitset.resize(active_arguments._array.size(), false);
+		// std::vector<uint8_t> scc_processed_args_bitset;
+		// scc_processed_args_bitset.resize(active_arguments._array.size(), false);
 
 		for (size_t i = 0; i < active_arguments._array.size(); i++) {
 			non_empty_clause[i] = af.accepted_var(active_arguments._array[i]);
@@ -54,15 +54,14 @@ namespace Encodings {
 			int scc_id = af.strongly_connected_components[i];
 			for (size_t c = 0; c < active_arguments._array.size(); c++) {
 				if(af.strongly_connected_components[active_arguments._array[c]] != scc_id){
-					if(!scc_processed_args_bitset[c]){
-						solver.add_clause_2(-af.accepted_var(active_arguments._array[i]), -af.accepted_var(active_arguments._array[c]));
+					solver.add_clause_2(-af.accepted_var(active_arguments._array[i]), -af.accepted_var(active_arguments._array[c]));
 						//std::cout << "SCC clause: " << -af.accepted_var(active_arguments._array[i]) << ", " << af.rejected_var(active_arguments._array[c]) << "\n";
 						//std::cout << solver.check() << "\n";
-					}
+					
 					
 				}
 			}
-			scc_processed_args_bitset[i] = true;
+			//scc_processed_args_bitset[i] = true;
 
 			// std::cout << "OUT CLAUSE: \n";
 			// for(auto c : out_clause){

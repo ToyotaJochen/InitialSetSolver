@@ -152,46 +152,46 @@ int main(int argc, char ** argv) {
 	// 	}
 	// }
 
-	result = Algorithms::enumerate_initial_scc(aaf, active_arguments);
+	// result = Algorithms::enumerate_initial_scc(aaf, active_arguments);
+	// 	for (const std::vector<uint32_t> & ext : result) {
+	// 			print_extension(aaf, ext);
+	// 			std::cout << ",";
+	// 	}
+
+    switch (string_to_task(task))
+    {
+	case ITSAT:
+		result = Algorithms::enumerate_initial(aaf, active_arguments);
 		for (const std::vector<uint32_t> & ext : result) {
 				print_extension(aaf, ext);
 				std::cout << ",";
 		}
-
-    // switch (string_to_task(task))
-    // {
-	// case ITSAT:
-	// 	result = Algorithms::enumerate_initial(aaf, active_arguments);
-	// 	for (const std::vector<uint32_t> & ext : result) {
-	// 			print_extension(aaf, ext);
-	// 			std::cout << ",";
-	// 	}
-	// 	break;
-    // case ITERSATSCC:
-    //     result = Algorithms::enumerate_initial_scc(aaf, active_arguments);
-	// 	for (const std::vector<uint32_t> & ext : result) {
-	// 			print_extension(aaf, ext);
-	// 			std::cout << ",";
-	// 	}
-	// 	break;
-    // case NITSAT:
-	// 	result = Algorithms::enumerate_initial_non_it(aaf, active_arguments);
-	// 		for (const std::vector<uint32_t> & ext : result) {
-	// 			print_extension(aaf, ext);
-	// 			std::cout << ",";
-	// 		}
-    //     break;
-    // case PROCEDURAL:
-	// 	result = Algorithms::enumerate_procedural(aaf, active_arguments);
-	// 	for (const std::vector<uint32_t> & ext : result) {
-	// 		print_extension(aaf, ext);
-	// 		std::cout << ",";
-	// 	}
-    //     break;
-    // default:
-	// 	std::cout << "Task not supported! \n";
-    //     return 1;
-    // }
+		break;
+    case ITERSATSCC:
+        result = Algorithms::enumerate_initial_scc(aaf, active_arguments);
+		for (const std::vector<uint32_t> & ext : result) {
+				print_extension(aaf, ext);
+				std::cout << ",";
+		}
+		break;
+    case NITSAT:
+		result = Algorithms::enumerate_initial_non_it(aaf, active_arguments);
+			for (const std::vector<uint32_t> & ext : result) {
+				print_extension(aaf, ext);
+				std::cout << ",";
+			}
+        break;
+    case PROCEDURAL:
+		result = Algorithms::enumerate_procedural(aaf, active_arguments);
+		for (const std::vector<uint32_t> & ext : result) {
+			print_extension(aaf, ext);
+			std::cout << ",";
+		}
+        break;
+    default:
+		std::cout << "Task not supported! \n";
+        return 1;
+    }
 
 
     return 0;
