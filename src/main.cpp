@@ -143,7 +143,7 @@ int main(int argc, char ** argv) {
 	IterableBitSet active_arguments = parse_i23(& aaf, file);
 	std::vector<std::vector<uint32_t>> result;
 
-    aaf.calc_scc();
+    // aaf.calc_scc();
 	// std::cout<< " scc done \n";
 	// std::vector<std::vector<uint32_t>> com = aaf.get_components();
 	// for(int i = 0; i < com.size(); i++){
@@ -168,6 +168,7 @@ int main(int argc, char ** argv) {
 		}
 		break;
     case ITERSATSCC:
+		aaf.calc_scc();
         result = Algorithms::enumerate_initial_scc(aaf, active_arguments);
 		for (const std::vector<uint32_t> & ext : result) {
 				print_extension(aaf, ext);
@@ -175,6 +176,7 @@ int main(int argc, char ** argv) {
 		}
 		break;
     case NITSAT:
+		aaf.calc_scc();
 		result = Algorithms::enumerate_initial_non_it(aaf, active_arguments);
 			for (const std::vector<uint32_t> & ext : result) {
 				print_extension(aaf, ext);
@@ -182,6 +184,7 @@ int main(int argc, char ** argv) {
 			}
         break;
     case PROCEDURAL:
+		aaf.calc_scc();
 		result = Algorithms::enumerate_procedural(aaf, active_arguments);
 		for (const std::vector<uint32_t> & ext : result) {
 			print_extension(aaf, ext);
