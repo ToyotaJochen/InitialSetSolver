@@ -39,7 +39,7 @@ namespace Algorithms{
             // argument is unsattacked
             if(af.attackers[a].empty()){
                 charFunc.insert(active_arguments._array[a]);
-                std::cout << "non-attacked argument " << af.accepted_var(active_arguments._array[a]) << " added to D_F \n";
+                // std::cout << "non-attacked argument " << af.accepted_var(active_arguments._array[a]) << " added to D_F \n";
             } else {
                 std::vector<uint32_t> attackers_of_a = af.attackers[a];
                 counter = 0;
@@ -57,7 +57,7 @@ namespace Algorithms{
                     if(counter == af.attackers[a].size()){
                         if(!charFunc.contains(active_arguments._array[a])){
                             charFunc.insert(active_arguments._array[a]);
-                            std::cout << "argument " << af.accepted_var(active_arguments._array[a]) << " added to D_F \n";
+                            // std::cout << "argument " << af.accepted_var(active_arguments._array[a]) << " added to D_F \n";
                         }
                     }
                 }
