@@ -35,7 +35,7 @@ namespace Algorithms{
         //     }
         // }
 
-        for(uint32_t a = 0; a < active_arguments._array.size(); a++){
+        for(uint32_t a : arguments){
             // argument is unsattacked
             if(af.attackers[a].empty()){
                 charFunc.insert(active_arguments._array[a]);
