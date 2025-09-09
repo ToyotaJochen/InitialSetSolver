@@ -13,6 +13,7 @@ public:
 AF();
 bool scc = false;
 uint32_t args;
+uint64_t tseitin_counter = 4 * args;
 std::vector<std::vector<uint32_t>> attackers;
 std::vector<std::vector<uint32_t>> attacked;
 std::vector<int32_t> strongly_connected_components;
@@ -22,6 +23,7 @@ int32_t rejected_var(uint32_t arg);
 int32_t component_var(uint32_t arg);
 int32_t accepted_min_var(uint32_t arg);
 int32_t rejected_min_var(uint32_t arg);
+int64_t current_tseitin_var(){return tseitin_counter++;};
 std::vector<int32_t> get_components_array();
 
 void set_arguments(uint32_t n_args);

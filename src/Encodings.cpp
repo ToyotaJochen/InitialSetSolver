@@ -26,8 +26,8 @@ namespace Encodings {
 	void admissible_nonempty_scc(AF & af, const IterableBitSet & active_arguments, SAT_Solver & solver) {
 		std::vector<int32_t> non_empty_clause(active_arguments._array.size());
 		std::vector<int32_t> out_clause;
-		// std::vector<uint8_t> scc_processed_args_bitset;
-		// scc_processed_args_bitset.resize(active_arguments._array.size(), false);
+		std::vector<uint8_t> scc_processed_args_bitset;
+		scc_processed_args_bitset.resize(active_arguments._array.size(), false);
 
 		for (size_t i = 0; i < active_arguments._array.size(); i++) {
 			non_empty_clause[i] = af.accepted_var(active_arguments._array[i]);
@@ -54,50 +54,39 @@ namespace Encodings {
 			int scc_id = af.strongly_connected_components[i];
 			for (size_t c = 0; c < active_arguments._array.size(); c++) {
 				if(af.strongly_connected_components[active_arguments._array[c]] != scc_id){
-					solver.add_clause_2(-af.accepted_var(active_arguments._array[i]), -af.accepted_var(active_arguments._array[c]));
-						//std::cout << "SCC clause: " << -af.accepted_var(active_arguments._array[i]) << ", " << af.rejected_var(active_arguments._array[c]) << "\n";
-						//std::cout << solver.check() << "\n";
-					
-					
+					// only add clauses if argument c was not alreeady processed, otherwise every clause will added twice.
+					if(!scc_processed_args_bitset[active_arguments._array[c]]){	
+						solver.add_clause_2(-af.accepted_var(active_arguments._array[i]), -af.accepted_var(active_arguments._array[c]));
+					}
 				}
 			}
-			//scc_processed_args_bitset[i] = true;
-
-			// std::cout << "OUT CLAUSE: \n";
-			// for(auto c : out_clause){
-			// 	std::cout << c << "\n";
-			// }
-			//std::cout << solver.check() << "\n";
-
+			scc_processed_args_bitset[i] = true;
 		}
-		// std::cout << "non_empt CLAUSE: \n";
-		// 	for(auto c : non_empty_clause){
-		// 		std::cout << c << "\n";
-		// 	}
 		solver.add_clause(non_empty_clause);
-		// std::cout << "Non empty clause: " << solver.check() << "\n";
-		// std::cout << solver.check() << "\n";
 	}
 
-	void nonempty_scc(AF & af, const IterableBitSet & active_arguments, SAT_Solver & solver){
-		std::vector<int32_t> non_empty_clause(active_arguments._array.size());
-		std::vector<int32_t> scc_in_clause;
-		std::vector<int32_t> scc_out_clause;
-		for (size_t i = 0; i < active_arguments._array.size(); i++) {
-			non_empty_clause[i] = af.accepted_var(active_arguments._array[i]);
-			int scc_id = af.strongly_connected_components[i];
-			for (size_t c = 0; c < active_arguments._array.size(); c++) {
-				if(af.strongly_connected_components[active_arguments._array[c]] != scc_id){
-					solver.add_clause_2(-af.accepted_var(active_arguments._array[i]), -af.accepted_var(active_arguments._array[c]));
-					//std::cout << "SCC clause: " << -af.accepted_var(active_arguments._array[i]) << ", " << af.rejected_var(active_arguments._array[c]) << "\n";
-					//std::cout << solver.check() << "\n";
-				}
-			}
-		}
-		solver.add_clause(non_empty_clause);
+	
+
+	// void nonempty_scc(AF & af, const IterableBitSet & active_arguments, SAT_Solver & solver){
+	// 	std::vector<int32_t> non_empty_clause(active_arguments._array.size());
+	// 	std::vector<int32_t> scc_in_clause;
+	// 	std::vector<int32_t> scc_out_clause;
+	// 	for (size_t i = 0; i < active_arguments._array.size(); i++) {
+	// 		non_empty_clause[i] = af.accepted_var(active_arguments._array[i]);
+	// 		int scc_id = af.strongly_connected_components[i];
+	// 		for (size_t c = 0; c < active_arguments._array.size(); c++) {
+	// 			if(af.strongly_connected_components[active_arguments._array[c]] != scc_id){
+	// 				solver.add_clause_2(-af.accepted_var(active_arguments._array[i]), -af.accepted_var(active_arguments._array[c]));
+	// 				//std::cout << "SCC clause: " << -af.accepted_var(active_arguments._array[i]) << ", " << af.rejected_var(active_arguments._array[c]) << "\n";
+	// 				//std::cout << solver.check() << "\n";
+	// 			}
+	// 		}
+	// 	}
+	// 	solver.add_clause(non_empty_clause);
 		
-	}
+	// }
 
+	// adding nonempty admissible clauses for a subset of arguments
 	void admissible_nonempty_vec(AF & af, const std::vector<uint32_t> & active_arguments, SAT_Solver & solver) {
 		std::vector<int32_t> non_empty_clause(active_arguments.size());
 		std::vector<int32_t> out_clause;
@@ -128,7 +117,61 @@ namespace Encodings {
 		}
 					
 	}
+
+	void and_bin_clause_tseitin(AF & af, uint32_t a, uint32_t b, bool la, bool lb, SAT_Solver & solver){
+		uint64_t tseitin_var = af.current_tseitin_var();
+		if(la && lb){
+			solver.add_clause_3(-a,-b,tseitin_var);
+			solver.add_clause_2(a,-tseitin_var);
+			solver.add_clause_2(b,-tseitin_var);
+		} else {
+			if(!la && lb){
+				solver.add_clause_3(a,-b,tseitin_var);
+				solver.add_clause_2(-a,-tseitin_var);
+				solver.add_clause_2(b,-tseitin_var);
+			} else { 
+				if(la && !lb){
+					solver.add_clause_3(-a,b,tseitin_var);
+					solver.add_clause_2(a,-tseitin_var);
+					solver.add_clause_2(-b,-tseitin_var);
+				} else {
+					solver.add_clause_3(-a,b,tseitin_var);
+					solver.add_clause_2(a,-tseitin_var);
+					solver.add_clause_2(-b,-tseitin_var);
+				}
+			}
+		}
+	}
+
+	void or_bin_clause_tseitin(AF & af, uint32_t a, uint32_t b, bool la, bool lb, SAT_Solver & solver){
+		uint64_t tseitin_var = af.current_tseitin_var();
+		if(la && lb){
+			solver.add_clause_3(a,b,-tseitin_var);
+			solver.add_clause_2(-a,tseitin_var);
+			solver.add_clause_2(-b,tseitin_var);
+		} else {
+			if(!la && lb){
+				solver.add_clause_3(-a,b,-tseitin_var);
+				solver.add_clause_2(a,tseitin_var);
+				solver.add_clause_2(-b,tseitin_var);
+			} else { 
+				if(la && !lb){
+					solver.add_clause_3(a,-b,-tseitin_var);
+					solver.add_clause_2(-a,tseitin_var);
+					solver.add_clause_2(b,tseitin_var);
+				} else {
+					solver.add_clause_3(-a,-b,tseitin_var);
+					solver.add_clause_2(a,-tseitin_var);
+					solver.add_clause_2(b,-tseitin_var);
+				}
+			}
+		}
+	}
 	
+
+	void not_nonempty_adm(AF & af, const std::vector<uint32_t> & active_arguments, SAT_Solver & solver){
+		
+	}
 
 	// Niskanen, A.
 	// Encodings from Mu-Toksia Solver
@@ -187,6 +230,4 @@ namespace Encodings {
 	// 	}
 	// 	solver.add_clause(clause);
 	// }
-
-
 }
