@@ -27,14 +27,11 @@ namespace Algorithms{
                     if (solver.model[arg]) {
                         complement_clause.push_back(-af.accepted_var(arg));
                         candidate.insert(arg);
-                        //std::cout << af.accepted_var(arg) << ", ";
-                    } else {
-                        //solver.assume(-af.accepted_var(arg));
-                        continue;
+                        std::cout << af.accepted_var(arg) << ", ";
                     }
                 }
-                solver.add_clause(complement_clause);
-                //std::cout << " add comp \n";
+                
+                std::cout << "\n";
                 if(is_initial(af, active_arguments, candidate, solver, result)){
                     extension.clear();
                     extension.reserve(active_arguments._array.size());
@@ -44,6 +41,7 @@ namespace Algorithms{
                         }
 
                     }
+                    solver.add_clause(complement_clause);
                     result.push_back(extension);
                 }
             }

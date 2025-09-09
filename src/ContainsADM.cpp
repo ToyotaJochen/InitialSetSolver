@@ -15,16 +15,16 @@ namespace Algorithms{
             // for(uint32_t arg : arguments){
             //     complement_clause.push_back(-af.accepted_var(arg));
             // }
-            for(uint32_t arg : active_arguments._array){
-                if(arguments.contains(arg)){
-                    assumptions.push_back(af.accepted_var(arg));
-                } else {
-                    assumptions.push_back(-af.accepted_var(arg));
-                }
-            }
-            for(int32_t as : assumptions){
-                solver.assume(as);
-            }
+            // for(uint32_t arg : active_arguments._array){
+            //     if(arguments.contains(arg)){
+            //         assumptions.push_back(af.accepted_var(arg));
+            //     } else {
+            //         assumptions.push_back(-af.accepted_var(arg));
+            //     }
+            // }
+            // for(int32_t as : assumptions){
+            //     if(as != 0) solver.assume(as);
+            // }
             return false;
         }
         std::set<uint32_t> charFunc = characteristicFunction(af, active_arguments, arguments);
@@ -32,6 +32,7 @@ namespace Algorithms{
             // for(uint32_t arg : arguments){
             //     complement_clause.push_back(-af.accepted_var(arg));
             // }
+            std::cout << "includes \n";
             for(uint32_t arg : active_arguments._array){
                 if(arguments.contains(arg)){
                     assumptions.push_back(af.accepted_var(arg));
@@ -48,21 +49,21 @@ namespace Algorithms{
             intersection.clear();
             std::set_intersection(charFunc.begin(), charFunc.end(), arguments.begin(), arguments.end(),inserter(intersection, intersection.begin()));
             if(intersection.empty()) {
-                if(!first){
-                    for(uint32_t arg : arguments){
-                        complement_clause.push_back(-af.accepted_var(arg));
-                        extension.push_back(arg);
-                    }
-                    solver.add_clause(complement_clause);
-                    result.push_back(extension);
-                }
+                // if(!first){
+                //     for(uint32_t arg : arguments){
+                //         complement_clause.push_back(-af.accepted_var(arg));
+                //         extension.push_back(arg);
+                //     }
+                //     solver.add_clause(complement_clause);
+                //     result.push_back(extension);
+                // }
                 return false;
             } else {
-                for(uint32_t arg : arguments){
-                        complement_clause.push_back(-af.accepted_var(arg));
-                        extension.push_back(arg);
-                    }
-                solver.add_clause(complement_clause);
+                // for(uint32_t arg : arguments){
+                //         complement_clause.push_back(-af.accepted_var(arg));
+                //         extension.push_back(arg);
+                //     }
+                // solver.add_clause(complement_clause);
                 return contains_admissible(af, active_arguments, intersection, arg, solver, result, false);
             }
         }
