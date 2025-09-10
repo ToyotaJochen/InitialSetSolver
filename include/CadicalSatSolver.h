@@ -21,8 +21,10 @@ public:
 	CadicalSatSolver(int32_t n_args);
 	~CadicalSatSolver() { delete solver; };
 	void add_clause(const std::vector<int32_t> & clause);
+	void add_clause(const std::vector<int64_t> & clause);
 	void add_clause_1(int32_t lit);
 	void add_clause_2(int32_t lit1, int32_t lit2);
+	void add_clause_2(int64_t lit1, int64_t lit2);
 	void add_clause_3(int32_t lit1, int32_t lit2, int32_t lit3);
 	void assume(int32_t lit);
 	bool check();

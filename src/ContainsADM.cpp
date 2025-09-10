@@ -32,7 +32,7 @@ namespace Algorithms{
             // for(uint32_t arg : arguments){
             //     complement_clause.push_back(-af.accepted_var(arg));
             // }
-            std::cout << "includes \n";
+            // std::cout << "includes \n";
             for(uint32_t arg : active_arguments._array){
                 if(arguments.contains(arg)){
                     assumptions.push_back(af.accepted_var(arg));

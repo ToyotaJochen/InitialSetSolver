@@ -27,11 +27,11 @@ namespace Algorithms{
                     if (solver.model[arg]) {
                         complement_clause.push_back(-af.accepted_var(arg));
                         candidate.insert(arg);
-                        std::cout << af.accepted_var(arg) << ", ";
+                        // std::cout << af.accepted_var(arg) << ", ";
                     }
                 }
                 
-                std::cout << "\n";
+                // std::cout << "\n";
                 if(is_initial(af, active_arguments, candidate, solver, result)){
                     extension.clear();
                     extension.reserve(active_arguments._array.size());
