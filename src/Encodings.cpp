@@ -54,7 +54,7 @@ namespace Encodings {
 			int scc_id = af.strongly_connected_components[i];
 			for (size_t c = 0; c < active_arguments._array.size(); c++) {
 				if(af.strongly_connected_components[active_arguments._array[c]] != scc_id){
-					// only add clauses if argument c was not alreeady processed, otherwise every clause will added twice.
+					// only add clauses if argument c was not already processed, otherwise every clause will added twice.
 					if(!scc_processed_args_bitset[active_arguments._array[c]]){	
 						solver.add_clause_2(-af.accepted_var(active_arguments._array[i]), -af.accepted_var(active_arguments._array[c]));
 					}
