@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "Launch",
             "program": "${workspaceFolder}/build/InitialSetSolver",
-            "args": ["-p=EE-PROC", "-f=${workspaceFolder}/data/ICCMA_23/main/BA_160_60_4.af"],
+            "args": ["-p=EE-NIT", "-f=${workspaceFolder}/data/F1.i23"],
             "cwd": "${workspaceFolder}"
         }
 

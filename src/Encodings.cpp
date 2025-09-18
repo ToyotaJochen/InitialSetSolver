@@ -175,7 +175,7 @@ namespace Encodings {
 		// tseitin_vars.push_back(current_tseitin_var);
 		std::vector<int64_t> t_clause;
 		t_clause.reserve(tseitin_vars.size()- 1);
-		for(int64_t t = 0; t < tseitin_vars.size() - 1; t++){
+		for(int64_t t = 0; t < tseitin_vars.size() - 2; t++){
 			solver.add_clause_2(-tseitin_vars[t], current_tseitin_var);
 			t_clause.push_back(tseitin_vars[t]);
 		}
@@ -186,6 +186,7 @@ namespace Encodings {
 	
 
 	void not_nonempty_adm(AF & af, const std::vector<uint32_t> & active_arguments, SAT_Solver & solver){
+		// 
 		std::vector<int64_t> tseitin_vars_A;
 		// tseitin_vars.reserve(af.args);
 		for (size_t i = 0; i < active_arguments.size(); i++) {

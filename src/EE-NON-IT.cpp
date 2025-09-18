@@ -38,25 +38,38 @@ namespace Algorithms{
                 if (solver.model[arg]) {
                     complement_clause.push_back(-af.accepted_var(arg));
                     min_args.push_back(arg);
-                    min_complement_clause.push_back(-af.accepted_min_var(arg));
                 }
             }
             solver.add_clause(complement_clause);
-            min_solver.add_clause(min_complement_clause);
-            
-            Encodings::min(af, min_args, min_solver);
+
+            std::vector<uint32_t> sub_clause;
+            sub_clause.reserve(min_args.size());
+            if(min_args.size() > 1){
+                for(const uint32_t a : min_args){
+                    for(const uint32_t b: min_args){
+                        if(b != a){
+                            sub_clause.push_back(b);
+                        }
+                    }
+                    Encodings::not_nonempty_adm(af, sub_clause, solver);
+                }
+            }
             int sat_min = min_solver.solve();
             if(sat_min == UNSAT_V){
+                for(const uint32_t arg : sub_clause){
+                    min_complement_clause.push_back(-af.accepted_min_var(arg));
+                }
+            } else {
                 extension.clear();
                 extension.reserve(active_arguments._array.size());
                 for(const uint32_t & arg : active_arguments._array) {
-                    if (solver.model[arg]) {
+                    if (solver.model[arg]) { // hier muss noch die methode für das model vom sat solver auf min vars erweitert werden!
                         extension.push_back(arg);
+                        min_complement_clause.push_back(-af.accepted_min_var(arg));
                     }
                 }
-                min_solver.add_clause(min_complement_clause);
-                result.push_back(extension);
             }
+            solver.add_clause(min_complement_clause);
         }
         return result;
     }
