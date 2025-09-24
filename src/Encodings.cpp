@@ -91,16 +91,16 @@ namespace Encodings {
 		std::vector<int32_t> non_empty_clause(active_arguments.size());
 		std::vector<int32_t> out_clause;
 		for (size_t i = 0; i < active_arguments.size(); i++) {
-			non_empty_clause[i] = af.accepted_min_var(active_arguments[i]);
-			solver.add_clause_2(-af.accepted_min_var(active_arguments[i]), -af.rejected_min_var(active_arguments[i]));
+			non_empty_clause[i] = af.accepted_var(active_arguments[i]);
+			solver.add_clause_2(-af.accepted_var(active_arguments[i]), -af.rejected_var(active_arguments[i]));
 
 			out_clause.clear();
 			out_clause.reserve(af.attackers[active_arguments[i]].size()+1);
 			for (size_t j = 0; j < af.attackers[active_arguments[i]].size(); j++) {
-				solver.add_clause_2(-af.accepted_min_var(active_arguments[i]), af.rejected_min_var(af.attackers[active_arguments[i]][j]));
-				out_clause.push_back(af.accepted_min_var(af.attackers[active_arguments[i]][j]));	
+				solver.add_clause_2(-af.accepted_var(active_arguments[i]), af.rejected_var(af.attackers[active_arguments[i]][j]));
+				out_clause.push_back(af.accepted_var(af.attackers[active_arguments[i]][j]));	
 			}
-			out_clause.push_back(-af.rejected_min_var(active_arguments[i]));
+			out_clause.push_back(-af.rejected_var(active_arguments[i]));
 			solver.add_clause(out_clause);
 		}
 		solver.add_clause(non_empty_clause);
