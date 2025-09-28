@@ -89,7 +89,7 @@ namespace Algorithms{
         // Create encoding for non-empty admissible sets
         SAT_Solver solver = SAT_Solver(af.args);
         Encodings::admissible_nonempty_scc(af, active_arguments, solver);
-        
+
         while(true){
             int sat = solver.solve();
             if(sat == UNSAT_V){
@@ -106,7 +106,7 @@ namespace Algorithms{
                 }
             }
             solver.add_clause(complement_clause);
-
+            
             Encodings::admissible_nonempty(af, active_arguments, min_solver);
             min_solver.add_clause(complement_clause);
             int sat_min = min_solver.solve();
@@ -119,7 +119,7 @@ namespace Algorithms{
                     }
                 }
                 result.push_back(extension);
-            } 
+            }
         }
         return result;
     }

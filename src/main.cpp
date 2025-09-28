@@ -17,7 +17,7 @@ static int usage_flag = 0;
 static int formats_flag = 0;
 static int problems_flag = 0;
 
-enum task { ITERSATSCC, ITSAT, NITSAT, PROCEDURAL, UNKNOWN_TASK };
+enum task { ITERSATSCC, ITSAT, NITSAT, PROCEDURAL, SCC, UNKNOWN_TASK };
 enum semantics { IT, UNKNOWN_SEM };
 
 task string_to_task(std::string problem) {
@@ -27,6 +27,7 @@ task string_to_task(std::string problem) {
 	if (tmp == "ITSCC") return ITERSATSCC;
 	if (tmp == "NIT") return NITSAT;
 	if (tmp == "PROC") return PROCEDURAL;
+	if (tmp == "SCC") return SCC;
 	return UNKNOWN_TASK;
 }
 
@@ -191,6 +192,9 @@ int main(int argc, char ** argv) {
 			std::cout << ",";
 		}
         break;
+	case SCC:
+		aaf.calc_scc();
+		break;
     default:
 		std::cout << "Task not supported! \n";
         return 1;

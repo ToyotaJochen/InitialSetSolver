@@ -27,7 +27,7 @@ std::vector<int32_t> calculate_scc(std::vector<std::vector<uint32_t>> & attacker
 
     //calculate the SCC's
     int num_components = strong_components(G, make_iterator_property_map(scc.begin(), get(vertex_index, G), scc[0]));
-    // std::cout << "Number of components: " << num_components << "\n";
+    // std::cout << num_components;
     // print the components of the arguments
     // for (auto i = scc.begin(); i != scc.end(); ++i)
     //     std::cout << "Vertex " << i - scc.begin() << " is in component " << *i
