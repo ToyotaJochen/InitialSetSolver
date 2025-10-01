@@ -1,0 +1,48 @@
+archive: null
+archive_output: null
+benchmark:
+- 1
+copy_raws: false
+exclude_task: null
+grouping:
+- tag
+- task
+- benchmark_id
+- solver_id
+name: ee_it
+plot: null
+printing: default
+raw_results_path: /home/mbuhr/probo2/src/results/ee_it/raw.csv
+repetitions: 1
+result_format: csv
+save_output: true
+save_to: results/ee_it
+score: null
+significance:
+  non_parametric_post_hoc: null
+  non_parametric_test: null
+  p_adjust: null
+  parametric_post_hoc: null
+  parametric_test: null
+  plot: null
+  table_export: null
+solver:
+- 1
+solver_arguments: null
+statistics:
+- mean
+- solved
+- timeouts
+- coverage
+status_file_path: /home/mbuhr/probo2/src/results/ee_it/status.json
+table_export:
+- txt
+task:
+- EE-IT
+time_measurement: default
+timeout: 400
+validation:
+  mode: null
+  plot: null
+  table_export: null
+yaml_file_name: ee_it.yaml

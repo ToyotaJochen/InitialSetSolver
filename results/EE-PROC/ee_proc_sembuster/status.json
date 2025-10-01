@@ -1,0 +1,1 @@
+{"name": "ee_proc_sembuster", "total_tasks": 1, "finished_tasks": 0, "tasks": {"EE-PROC": {"solvers": {"2": {"name": "InitialSetSolver", "version": "0.1", "solved": 15, "total": 15}}}}}
