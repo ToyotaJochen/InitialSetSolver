@@ -1,3 +1,7 @@
+/*
+* The following is taken from the serialisation-solver by Bengel and Thimm
+* and is subject to the GPL 3.0.
+*/ 
 #include <fstream>
 #include <sstream>
 
@@ -5,31 +9,6 @@
 #include "AF.h"
 #include "Parse.h"
 
-// The arguments of an AF with n arguments are indexed consecutively with positive 
-// integers from 1 to n. The first line of the input file is the unique "p-line" of the form
-
-// p af <n>
-
-// where <n> is the number of arguments n, ending with the newline character. An attack a → b, 
-// where a has index i and b has index j, is expressed as the line
-
-// i j
-
-// ending with the newline character. In addition to the p-line and lines expressing attacks, 
-// lines starting with the '#' character are allowed. These lines are interpreted as comment lines 
-// unrelated to the syntax of the input AF, and end with the newline character. No other lines are allowed.
-
-// Example. 
-// The AF with five arguments a,b,c,d,e and attacks a → b, b → d, d → e, e → d, e → e is specified as follows, 
-// assuming the indexing a=1, b=2, c=3, d=4, e=5 :
-
-// p af 5
-// # this is a comment
-// 1 2
-// 2 4
-// 4 5
-// 5 4
-// 5 5
 
 IterableBitSet parse_i23(AF* aaf, std::string file) {
     std::ifstream input;

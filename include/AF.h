@@ -1,3 +1,7 @@
+/*
+* The following is largely taken from the serialisation-solver by Bengel and Thimm
+* and is subject to the GPL 3.0.
+*/ 
 #ifndef AF_H
 #define AF_H
 

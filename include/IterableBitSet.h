@@ -1,3 +1,7 @@
+/*
+* The following is taken from the serialisation-solver by Bengel and Thimm
+* and is subject to the GPL 3.0.
+*/ 
 #ifndef BITSET_H
 #define BITSET_H
 

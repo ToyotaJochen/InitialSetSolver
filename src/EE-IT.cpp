@@ -1,3 +1,7 @@
+/*
+* The following is taken from the serialisation-solver by Bengel and Thimm
+* and is subject to the GPL 3.0.
+*/ 
 #include "Algorithms.h"
 
 
@@ -44,14 +48,13 @@ namespace Algorithms {
                         solver.assume(-af.accepted_var(arg));
                     }
                 }
-                solver.add_clause(minimization_clause); // durch das minimieren werden deutlich gezieltere(?) komplementärklauseln hinzugefügt. hier könnte der große performancevorteil begründet sein.
+                solver.add_clause(minimization_clause);
             }
             if (found_extension) { // if an extension has been found and minimized, add corresponding extension 
                                    // to result and add a complement clause to ensure it is not found again
                 extension.clear();
                 extension.reserve(active_arguments._array.size());
-                //complement_clause.clear();
-                //complement_clause.reserve(active_arguments._array.size());
+                
                 for(const uint32_t & arg : active_arguments._array) {
                     if (solver.model[arg]) {
                         extension.push_back(arg);
